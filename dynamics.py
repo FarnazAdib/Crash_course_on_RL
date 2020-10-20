@@ -19,7 +19,7 @@ class CartPole():
         self.env = wrappers.Monitor(self.env, self.STORE_PATH + f"/vid_{dt.datetime.now().strftime('%d%m%Y%H%M')}",
                                     video_callable=lambda episode_id: episode_id % 100 == 0, force=True)
 
-    def one_rollout(self, agent):
+    def one_rollout(self, agent, remember=False):
         """Run one episode."""
         states, actions, rewards, new_states, dones = [], [], [], [], []
         state = self.env.reset()
@@ -27,6 +27,8 @@ class CartPole():
         while not done:
             action = agent.get_action(state, self.env)
             new_state, reward, done, _ = self.env.step(action)
+            if remember:
+                agent.remember(state, action, reward, new_state, done)
             states.append(state)
             actions.append(action)
             rewards.append(reward)

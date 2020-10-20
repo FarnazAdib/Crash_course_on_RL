@@ -11,7 +11,7 @@ from policy_iteration import PI
 from dynamics import CartPole
 
 # ----------locations for saving data ----------------------
-STORE_PATH = '/tmp/cartpole_exp1/Q'
+STORE_PATH = '/tmp/cartpole_exp1/Q_replay'
 data_path = STORE_PATH + f"/data_{dt.datetime.now().strftime('%d%m%Y%H%M')}"
 agent_path = STORE_PATH + f"/agent_{dt.datetime.now().strftime('%d%m%Y%H%M')}"
 info_path = STORE_PATH + f"/info_{dt.datetime.now().strftime('%d%m%Y%H%M')}"
@@ -37,8 +37,10 @@ hparams = {
         'num_episodes': 5000,
         'Rand_Seed': Rand_Seed,
         'epsilon': 0.1,
+        'batch_size': 200,
         'adam_eps': 0.1,
-        'learning_rate_adam': 0.001
+        'learning_rate_adam': 0.01
+
 }
 policy = PI(hparams)
 
@@ -47,8 +49,8 @@ policy = PI(hparams)
 tot_rews = []
 mean_100ep = 0
 for episode in range(hparams['num_episodes']):
-    states, actions, rewards, new_states, dones = CP.one_rollout(policy) # one rollout
-    loss = policy.update_network(states, actions, rewards, new_states, dones) # update the network
+    states, actions, rewards, new_states, dones = CP.one_rollout(policy, remember=True) # one rollout
+    loss = policy.replay(hparams['batch_size']) # update the network
 
     # check if the problem is solved
     mean_100ep = np.mean(tot_rews[-101:-1])
