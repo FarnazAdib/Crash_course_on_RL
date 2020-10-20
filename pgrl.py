@@ -20,12 +20,12 @@ class PG():
         ])
         self.network.compile(loss='categorical_crossentropy', optimizer=keras.optimizers.Adam())
 
-    def get_action(self, state):
+    def get_action(self, state, env):
         softmax_out = self.network(state.reshape((1, -1)))
         selected_action = np.random.choice(self.hparams['num_actions'], p=softmax_out.numpy()[0])
         return selected_action
 
-    def update_network(self, rewards, states, actions):
+    def update_network(self, states, actions, rewards):
         reward_sum = 0
         discounted_rewards = []
         for reward in rewards[::-1]:  # reverse buffer r
