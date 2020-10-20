@@ -6,14 +6,15 @@ from collections import deque
 
 
 class PI():
-    def __init__(self, hparams, epsilon=1.0, epsilon_min=0.01, epsilon_log_decay=0.995):
+    def __init__(self, hparams, epsilon_min=0.01, epsilon_log_decay=0.995):
         self.hparams = hparams
         np.random.seed(hparams['Rand_Seed'])
         tf.random.set_seed(hparams['Rand_Seed'])
         random.seed(hparams['Rand_Seed'])
         self.policy_network()
         self.memory = deque(maxlen=100000)
-        self.epsilon = epsilon
+        self.epsilon = hparams['epsilon']
+        self.decay_epsilon = hparams['decay_epsilon']
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_log_decay
 
@@ -30,9 +31,11 @@ class PI():
         self.network.compile(loss='mean_squared_error', optimizer=keras.optimizers.Adam(
             epsilon=self.hparams['adam_eps'], learning_rate=self.hparams['learning_rate_adam']))
 
-    def get_action(self, state, env):
+    def get_action(self, state, env, t):
         state = self._process_state(state)
-        if np.random.random() <= self.hparams['epsilon']:
+        if self.decay_epsilon:
+            self.epsilon = self.get_epsilon(t)
+        if np.random.random() <= self.epsilon:
             selected_action = env.action_space.sample()
         else:
             selected_action = np.argmax(self.network(state))

@@ -37,6 +37,7 @@ hparams = {
         'num_episodes': 5000,
         'Rand_Seed': Rand_Seed,
         'epsilon': 0.1,
+        'decay_epsilon': False,
         'batch_size': 200,
         'adam_eps': 0.1,
         'learning_rate_adam': 0.01
@@ -49,7 +50,7 @@ policy = PI(hparams)
 tot_rews = []
 mean_100ep = 0
 for episode in range(hparams['num_episodes']):
-    states, actions, rewards, new_states, dones = CP.one_rollout(policy, remember=True) # one rollout
+    states, actions, rewards, new_states, dones = CP.one_rollout(policy, episode,remember=True) # one rollout
     loss = policy.replay(hparams['batch_size']) # update the network
 
     # check if the problem is solved
