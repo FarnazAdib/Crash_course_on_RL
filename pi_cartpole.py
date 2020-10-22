@@ -3,11 +3,11 @@ import tensorflow as tf
 import datetime as dt
 import warnings
 warnings.filterwarnings('ignore')
-from pgrl import PG
+from policy_iteration import PI
 from dynamics import CartPole
 
 # ----------locations for saving data ----------------------
-STORE_PATH = '/tmp/cartpole_exp1/PG'
+STORE_PATH = '/tmp/cartpole_exp1/Q'
 data_path = STORE_PATH + f"/data_{dt.datetime.now().strftime('%d%m%Y%H%M')}"
 agent_path = STORE_PATH + f"/agent_{dt.datetime.now().strftime('%d%m%Y%H%M')}"
 train_writer = tf.summary.create_file_writer(data_path)
@@ -31,11 +31,12 @@ agent_par = {
     'Rand_Seed': Rand_Seed,
     'hidden_size': 30,
     'GAMMA': 1.0,
-    'num_episodes': 1000,
+    'num_episodes': 5000,
+    'epsilon': 0.1,  # exploration rate
     'learning_rate_adam': 0.001,
-    'adam_eps': 1e-7,
+    'adam_eps': 0.1,
 }
-policy = PG(agent_par)
+policy = PI(agent_par)
 
 
 # Running the algorithm for a maximum number of iteration until it is solved
@@ -44,10 +45,10 @@ mean_100ep = 0
 for episode in range(agent_par['num_episodes']):
 
     # Do one rollout
-    states, actions, rewards, _, _ = CP.one_rollout(policy)
+    states, actions, rewards, new_states, dones = CP.one_rollout(policy)
 
     # Update the network
-    loss = policy.update_network(states, actions, rewards)
+    loss = policy.update_network(states, actions, rewards, new_states, dones)
 
     # Check if the problem is solved
     if episode > 100:
@@ -57,7 +58,7 @@ for episode in range(agent_par['num_episodes']):
     tot_rews.append(tot_reward)
     print(f"Episode: {episode}, Reward: {tot_reward}, Mean of 100 cons episodes: {mean_100ep}")
     if mean_100ep > env_par['threshold']:
-        print(f"Problem is solved.")
+        print(f"Problem is  solved.")
         policy.network.save(agent_path)
         break
 

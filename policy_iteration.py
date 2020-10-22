@@ -1,26 +1,24 @@
 import numpy as np
 import tensorflow as tf
-import random
 from tensorflow import keras
+import random
 from collections import deque
 
 
-class PI():
+class PI:
     def __init__(self, hparams, epsilon_min=0.01, epsilon_log_decay=0.995):
         self.hparams = hparams
         np.random.seed(hparams['Rand_Seed'])
         tf.random.set_seed(hparams['Rand_Seed'])
         random.seed(hparams['Rand_Seed'])
-        self.policy_network()
         self.memory = deque(maxlen=100000)
         self.epsilon = hparams['epsilon']
-        self.decay_epsilon = hparams['decay_epsilon']
         self.epsilon_min = epsilon_min
         self.epsilon_decay = epsilon_log_decay
 
-    def policy_network(self):
+        # The policy network
         self.network = keras.Sequential([
-            keras.layers.Dense(self.hparams['hidden_size'], input_dim=self.hparams['input_size'], activation='relu',
+            keras.layers.Dense(self.hparams['hidden_size'], input_dim=self.hparams['num_state'], activation='relu',
                                kernel_initializer=keras.initializers.he_normal(), dtype='float64'),
             keras.layers.Dense(self.hparams['hidden_size'], activation='relu',
                                kernel_initializer=keras.initializers.he_normal(), dtype='float64'),
@@ -31,10 +29,8 @@ class PI():
         self.network.compile(loss='mean_squared_error', optimizer=keras.optimizers.Adam(
             epsilon=self.hparams['adam_eps'], learning_rate=self.hparams['learning_rate_adam']))
 
-    def get_action(self, state, env, t):
+    def get_action(self, state, env):
         state = self._process_state(state)
-        if self.decay_epsilon:
-            self.epsilon = self.get_epsilon(t)
         if np.random.random() <= self.epsilon:
             selected_action = env.action_space.sample()
         else:
@@ -44,9 +40,6 @@ class PI():
     def remember(self, state, action, reward, next_state, done):
         self.memory.append((state, action, reward, next_state, done))
 
-    def get_epsilon(self, t):
-        return max(self.epsilon_min, min(self.epsilon, 1.0 - np.log10((t + 1) * self.epsilon_decay)))
-
     def replay(self, batch_size):
         batch = random.sample(self.memory, min(len(self.memory), batch_size))
         states, actions, rewards, new_states, dones = list(map(lambda i: [j[i] for j in batch], range(5)))
@@ -54,7 +47,6 @@ class PI():
         if self.epsilon > self.epsilon_min:
             self.epsilon *= self.epsilon_decay
         return loss
-
 
     def update_network(self, states, actions, rewards, new_states, dones):
         eps_length = len(states)
@@ -65,10 +57,12 @@ class PI():
                 y_pred[i, actions[i]] = rewards[i]
             else:
                 new_state = self._process_state(new_states[i])
-                y_pred[i, actions[i]] = rewards[i] + self.hparams['GAMMA'] * tf.math.reduce_max(self.network(new_state)).numpy()
+                y_pred[i, actions[i]] = rewards[i] + \
+                                        self.hparams['GAMMA'] * tf.math.reduce_max(self.network(new_state)).numpy()
         loss = self.network.train_on_batch(states, y_pred)
+
         return loss
 
     def _process_state(self, state):
-        return state.reshape([1, self.hparams['input_size']])
+        return state.reshape([1, self.hparams['num_state']])
 
