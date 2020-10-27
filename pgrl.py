@@ -37,6 +37,6 @@ class PG:
         discounted_rewards -= np.mean(discounted_rewards)
         discounted_rewards /= np.std(discounted_rewards)
         states = np.vstack(states)
-        target_actions = np.array([1 - np.array(actions), np.array(actions)]).T
+        target_actions = tf.keras.utils.to_categorical(np.array(actions), self.hparams['num_actions'])
         loss = self.network.train_on_batch(states, target_actions, sample_weight=discounted_rewards)
         return loss
