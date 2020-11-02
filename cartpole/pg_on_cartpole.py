@@ -3,8 +3,9 @@ import tensorflow as tf
 import datetime as dt
 import warnings
 warnings.filterwarnings('ignore')
-from pgrl import PG
-from dynamics import CartPole
+from cartpole.pgrl import PG
+from cartpole.dynamics import CartPole
+
 
 # ----------locations for saving data ----------------------
 STORE_PATH = '/tmp/cartpole_exp1/PG'

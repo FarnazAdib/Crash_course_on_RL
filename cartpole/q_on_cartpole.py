@@ -3,8 +3,8 @@ import tensorflow as tf
 import datetime as dt
 import warnings
 warnings.filterwarnings('ignore')
-from policy_iteration import Q
-from dynamics import CartPole
+from cartpole.policy_iteration import Q
+from cartpole.dynamics import CartPole
 
 # ----------locations for saving data ----------------------
 STORE_PATH = '/tmp/cartpole_exp1/Q'

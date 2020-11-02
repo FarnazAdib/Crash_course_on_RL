@@ -1,3 +1,6 @@
 __pycache__/
 .idea/
 .ipynb_checkpoints/
+extra/
+cartpole/.ipynb_checkpoints/
+lq/.ipynb_checkpoints/
