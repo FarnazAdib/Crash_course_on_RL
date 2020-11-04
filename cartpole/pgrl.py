@@ -27,16 +27,16 @@ class PG:
 
     def update_network(self, states, actions, rewards):
         reward_sum = 0
-        discounted_rewards = []
+        rewards_to_go = []
         for reward in rewards[::-1]:  # reverse buffer r
             reward_sum = reward + self.hparams['GAMMA'] * reward_sum
-            discounted_rewards.append(reward_sum)
-        discounted_rewards.reverse()
-        discounted_rewards = np.array(discounted_rewards)
+            rewards_to_go.append(reward_sum)
+        rewards_to_go.reverse()
+        rewards_to_go = np.array(rewards_to_go)
         # standardise the rewards
-        discounted_rewards -= np.mean(discounted_rewards)
-        discounted_rewards /= np.std(discounted_rewards)
+        rewards_to_go -= np.mean(rewards_to_go)
+        rewards_to_go /= np.std(rewards_to_go)
         states = np.vstack(states)
         target_actions = tf.keras.utils.to_categorical(np.array(actions), self.hparams['num_actions'])
-        loss = self.network.train_on_batch(states, target_actions, sample_weight=discounted_rewards)
+        loss = self.network.train_on_batch(states, target_actions, sample_weight=rewards_to_go)
         return loss
