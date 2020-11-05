@@ -5,7 +5,7 @@ This is a self-contained repository to explain two basic Reinforcement (RL) algo
 In this repository, I will explain how to formulate PG and Q-learning for each of these cases. I will provide implementations for these algorithms for both cases as Jupyter notebooks. You can also find the pure code for these algorithms (and also a few more algorithms that I have implemented by not discussed). The code is easy to follow and read. I have written in a modular way, so for example, if one is interested in the implementation of an algorithm is not confused with defining an environment in gym or plotting the results or so on.  
 
 ## Citing this repo
-If you use this repo, please consider citing the following papers.
+If you use this repo, please consider citing the following papers:
 * F. Adib Yaghmaie, S. Gunnarsson and F. L. Lewis ["Output Regulation of Unknown Linear Systems using Average Cost Reinforcement Learning"](https://www.sciencedirect.com/science/article/pii/S0005109819304108), _Automatica_, Vol. 110, 2019.
 
 * F. Adib Yaghmaie and F. Gustafsson ["Using Reinforcement Learning for Model-free Linear Quadratic Control with Process and Measurement Noises"](https://ieeexplore.ieee.org/abstract/document/9029904), _In 2019 Decision and Control (CDC)4, IEEE 58th Conference on,
@@ -15,7 +15,7 @@ If you use this repo, please consider citing the following papers.
 
 Before starting running (and playing) with these algorithms, make sure you have built a virtual environment and imported required libraries. Take a look at [Preparation notebook](Preparation.ipynb).
 
-## Dynamical systems cartple, 
+## Dynamical systems
 We consider two types of dynamical systems (or environments in RL terminology). Read about them here
 
 * [Cartpole: an environment with discrete action-space](cartpole.ipynb)
@@ -34,21 +34,21 @@ You can also see the __pure code__ for PG
     * [PG for discrete action space (cartpole)](./cartpole/pg_on_cartpole.py)
     * [PG for continuous action space (linear quadratic)](./lq/pg_on_lq.py)
 
-## $Q$-learning 
+## Q-learning 
 
-Below, you can see __jupyter notebooks__ regarding $Q$-learning algorithm
-* [Explanation of $Q$-learning](q_notebook.ipynb)
-    * [How to code $Q$-learning for problems with discrete action space (cartpole)](q_on_cartpole_notebook.ipynb)
-    * [How to code $Q$-learing for problems with continuous action space (linear quadratic)](q_on_lq_notebook.ipynb)
-* [Explanation of experience replay $Q$-learning](replay_q_notebook.ipynb)
-    * [How to code experience replay $Q$ learning for systems with discrete action space (cartple)](replay_q_on_cartpole_notebook.ipynb)
-    * _We have not implemented explerience replay $Q$ learning on LQ problem because the plain $Q$-learning is super good on LQ porblem. Note that as you can see from the explanation in the experience replay $Q$-learning, this algorithm has only two simple functions in addition to the plain $Q$-learning and those are not related to the action to be discrete or continuous. So, the extension is quite straight forward._
+Below, you can see __jupyter notebooks__ regarding Q-learning algorithm
+* [Explanation of Q-learning](q_notebook.ipynb)
+    * [How to code Q-learning for problems with discrete action space (cartpole)](q_on_cartpole_notebook.ipynb)
+    * [How to code Q-learing for problems with continuous action space (linear quadratic)](q_on_lq_notebook.ipynb)
+* [Explanation of experience replay Q-learning](replay_q_notebook.ipynb)
+    * [How to code experience replay Q learning for systems with discrete action space (cartple)](replay_q_on_cartpole_notebook.ipynb)
+    * _We have not implemented explerience replay Q learning on LQ problem because the plain Q-learning is super good on LQ porblem. Note that as you can see from the explanation in the experience replay Q-learning, this algorithm has only two simple functions in addition to the plain Q-learning and those are not related to the action to be discrete or continuous. So, the extension is quite straight forward._
     
-You can also see the __pure code__ for $Q$- and experience replay $Q$-learning
+You can also see the __pure code__ for Q- and experience replay Q-learning
     
-* $Q$-learning pure code
-    * [$Q$-learning for discrete action space (cartpole)](./cartpole/q_on_cartpole.py)
-    * [$Q$-learning for continuous action space (linear quadratic)](./lq/q_on_lq.py)
+* Q-learning pure code
+    * [Q-learning for discrete action space (cartpole)](./cartpole/q_on_cartpole.py)
+    * [Q-learning for continuous action space (linear quadratic)](./lq/q_on_lq.py)
     
-* Experience replay $Q$-learning pure code
-    * [Experience replay $Q$ learning for discrete action space (cartple)](./cartpole/replay_q_on_cartpole.py)
+* Experience replay Q-learning pure code
+    * [Experience replay Q-learning for discrete action space (cartple)](./cartpole/replay_q_on_cartpole.py)
