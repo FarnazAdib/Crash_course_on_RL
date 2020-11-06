@@ -6,6 +6,8 @@ In this repository, I will explain how to formulate PG and Q-learning for each o
 
 ## Citing this repo
 You can cite this repo
+
+```
 @misc{FarnazRLcourse,
   author = {Adib Yaghmaie, Farnaz},
   title = {Crash Course on Reinforcement Learning},
@@ -14,6 +16,7 @@ You can cite this repo
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/FarnazAdib/Crash_course_on_RL.git}},
 }
+```
 
 
 If you use this repo, please consider citing the following relevant papers:
