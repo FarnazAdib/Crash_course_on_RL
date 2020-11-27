@@ -25,6 +25,9 @@ If you use this repo, please consider citing the following relevant papers:
 * F. Adib Yaghmaie and F. Gustafsson ["Using Reinforcement Learning for Model-free Linear Quadratic Control with Process and Measurement Noises"](https://ieeexplore.ieee.org/abstract/document/9029904), _In 2019 Decision and Control (CDC)4, IEEE 58th Conference on,
 2019_, pp. 6510-6517.
 
+* F. Adib Yaghmaie and s. Gunnarsson ["A New Result on Robust Adaptive Dynamic Programming for Uncertain Partially Linear Systems"](https://ieeexplore.ieee.org/abstract/document/9029695/), _In 2019 Decision and Control (CDC)4, IEEE 58th Conference on,
+2019_, pp. 7480-7485.
+
 ## How to use this repo
 This repository contains Jupyter notebooks and python files. If you want to run Jupyter notebooks, I suggest to use google colab. If you want to extend the results, examine more systems, I suggest to clone this repostory and run on your computer
 
