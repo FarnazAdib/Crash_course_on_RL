@@ -1,5 +1,6 @@
 import numpy as np
 import scipy.linalg as LA
+import copy
 
 
 class ADAM:
@@ -16,19 +17,19 @@ class ADAM:
 
     def opt_onestep(self, g):
         '''
-        This function calculates one iteration of adam optimization. It takes the gradient of the cost function with
-        respect to parameter theta and return dtheta. Note that you should use +dtheta when you are maximizing and
-        -dtheta when minimizing.
+        This function calculate one iteration of adam optimization. It takes the gradient of cost functin with repect to
+        parameter thetha and return  dtheta. Note that you should use +dtheta when you are maximizing and -dtheta when
+        minimizing.
         return the changes for the learning parameter
-        :param g: The gradient of the loss function with respect to the parameter theta
-        :return: dtheta by ADAM
+        :param g: Assume as gradient of loss with respect to the parameter theta
+        :return: dtheta
         '''
         self.adam_M = self.beta1 * self.adam_M + (1 - self.beta1) * g
         self.adam_V = self.beta2 * self.adam_V + (1 - self.beta2) * (g * g)
-        effective_step_size = self.step_size * np.sqrt(1 - self.beta2 ** (self.it_index + 1)) / (1 - self.beta1 ** (self.it_index + 1))
+        mhat = copy.copy(self.adam_M) / (1 - self.beta1 ** (self.it_index + 1))
+        vhat = copy.copy(self.adam_V) / (1 - self.beta2 ** (self.it_index + 1))
         self.it_index = self.it_index + 1
-        return effective_step_size * self.adam_M / (np.sqrt(self.adam_V) + self.epsilon)
-
+        return self.step_size * mhat / (np.sqrt(vhat) + self.epsilon)
 
 def inst_variable(x, y, z):
     '''
