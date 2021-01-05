@@ -17,7 +17,7 @@ Rand_Seed = 1
 env_par = {
     'Rand_Seed': Rand_Seed,
     'STORE_PATH': STORE_PATH,
-    'monitor': False,
+    'monitor': True,
     'threshold': 195.0
 }
 Rand_Seed = 1

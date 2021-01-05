@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 from lq.dynamics import Linear_Quadratic
 from lq.policies import LinK
 from lq.funlib import ADAM
@@ -86,7 +87,7 @@ class PGRL:
         '''
 
         # Initialize the controller
-        Lin_gain = LinK(K0)
+        Lin_gain = LinK(copy.copy(K0))
         Lin_gain.make_sampling_on(explore_mag)
 
         # A heuristic baseline to decrease the variance
@@ -136,7 +137,7 @@ class PGRL:
         :return: Controller gain by vanilla PG using ADAM
         '''
         # Initialize the controller
-        Lin_gain = LinK(K0)
+        Lin_gain = LinK(copy.copy(K0))
 
         # A heuristic baseline to decrease the variance
         Lin_gain.make_sampling_on(explore_mag)
