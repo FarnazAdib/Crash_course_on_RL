@@ -35,7 +35,7 @@ for N in range(1, len(n_iteration)):
         print('Number of iterations: %d, MC trial: %d' % (n_iteration[N], trial))
 
         print('Policy Gradient')
-        PG.K[:, :, trial, N] = Mypgrl.pg_linpolicy(K0, n_iteration[N], n_batch, T)
+        PG.K[:, :, trial, N] = Mypgrl.pg_linpolicy(K0, n_iteration[N], n_batch, T, explore_mag=0.1)
 
 
 for N in range(1, len(n_iteration)):

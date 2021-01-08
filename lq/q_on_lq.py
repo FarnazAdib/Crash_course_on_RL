@@ -35,7 +35,7 @@ for t in range(1, len(T)):
         print('Rollout Length: %d, MC trial: %d' % (T[t], trial))
 
         print('Q learning')
-        Q.P[:, :, trial, t], Q.K[:, :, trial, t] = My_q_learning.ql(K0, n_iteration, T[t])
+        Q.P[:, :, trial, t], Q.K[:, :, trial, t] = My_q_learning.ql(K0, n_iteration, T[t], explore_mag=1.0)
 
         print('Model learning')
         MODEL_LEARNING.P[:, :, trial, t], MODEL_LEARNING.K[:, :, trial, t] = \
