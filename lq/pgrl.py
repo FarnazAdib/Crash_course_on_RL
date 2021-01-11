@@ -29,7 +29,7 @@ class PGRL:
         :param safeguard: The maximum absolute value of entries of the controller gain
         :return: Controller K by random search on LQ problem
         '''
-        Lin_gain = LinK(K0)
+        Lin_gain = LinK(copy.copy(K0))
         for k in range(N):
             reward_store = []
             batch = np.zeros((self.m, self.n))
@@ -57,7 +57,7 @@ class PGRL:
         :return: Controller by uniform random linear policy
         '''
 
-        Lin_gain = LinK(K0)
+        Lin_gain = LinK(copy.copy(K0))
         best_K = Lin_gain.K
         best_reward = -float("inf")
         for k in range(N):
