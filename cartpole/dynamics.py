@@ -20,7 +20,7 @@ class CartPole:
         self.env.action_space.seed(self.Rand_Seed)
         if par['monitor']:
             self.env = wrappers.Monitor(self.env, self.STORE_PATH + f"/vid_{dt.datetime.now().strftime('%d%m%Y%H%M')}",
-                                        video_callable=lambda episode_id: episode_id % 100 == 0, force=True)
+                                        video_callable=lambda episode_id: episode_id % 50 == 0, force=True)
 
     def one_rollout(self, agent, remember=False):
         '''
