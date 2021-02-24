@@ -1,10 +1,13 @@
 import numpy as np
 import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import datetime as dt
 import warnings
 warnings.filterwarnings('ignore')
 from cartpole.pgrl import PG
 from cartpole.dynamics import CartPole
+from cartpole.pltlib import PLTLIB
 
 
 # ----------locations for saving data ----------------------
@@ -18,7 +21,7 @@ Rand_Seed = 1
 env_par = {
     'Rand_Seed': Rand_Seed,
     'STORE_PATH': STORE_PATH,
-    'monitor': True,
+    'monitor': False,
     'threshold': 195.0
 }
 Rand_Seed = 1
@@ -69,6 +72,11 @@ for episode in range(agent_par['num_episodes']):
 # Close the environment
 CP.env.close()
 
-# Print the summary of the solution
+# Print the results if the problem is solved
 if mean_100ep > env_par['threshold']:
+    # Print the summary of the solution
     print(f"\n\nProblem is solved after {episode} Episode with the mean reward {mean_100ep} over the last 100 episodes")
+
+    # Plot the result
+    MyPlot = PLTLIB()
+    MyPlot.reward_it(tot_rews)

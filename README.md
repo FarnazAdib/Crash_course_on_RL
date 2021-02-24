@@ -33,9 +33,11 @@ This repository contains Jupyter notebooks and python files. If you want to run 
 
 ### Running on google colab
 * Go to [https://colab.research.google.com/notebooks/intro.ipynb] and sign in with a Google acount.
-* Click File, and Upload notebook
-* Select github and paste the following link [https://github.com/FarnazAdib/Crash_course_on_RL.git]
-* Open the notebook that you want
+* Click File, and Upload notebook. If you get the webpage in Swedish, click Arkiv and then Ladda upp anteckningsbok.
+* Select github and paste the following link [https://github.com/FarnazAdib/Crash_course_on_RL.git].
+* Then, a list of files with type .ipynb appears. They are Jupyter notebooks. Jupyter notebooks can have both text and code and it is possible to run the code. As an example, scroll down and open pg_on_cartpole_notebook.ipynb.
+* The file contains some cells with text and come cells with code. The cells which contain code have $\[\]$ on the left. If you move your mouse over $\[ \]$, a play box appears. You can click on it to run the cell. Make sure not to miss a cell as it causes fatal errors.
+* You can continue like this and run all code cells one by one up to the end.
 
 ### Running on local computer
 * Go to [https://github.com/FarnazAdib/Crash_course_on_RL.git] and clone the project.

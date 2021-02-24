@@ -1,10 +1,13 @@
 import numpy as np
 import tensorflow as tf
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import datetime as dt
 import warnings
 warnings.filterwarnings('ignore')
 from cartpole.policy_iteration import Q
 from cartpole.dynamics import CartPole
+from cartpole.pltlib import PLTLIB
 
 # ----------locations for saving data ----------------------
 STORE_PATH = '/tmp/cartpole_exp1/Q_replay'
@@ -17,7 +20,7 @@ Rand_Seed = 1
 env_par = {
     'Rand_Seed': Rand_Seed,
     'STORE_PATH': STORE_PATH,
-    'monitor': True,
+    'monitor': False,
     'threshold': 195.0
 }
 Rand_Seed = 1
@@ -60,7 +63,7 @@ for episode in range(agent_par['num_episodes']):
     tot_rews.append(tot_reward)
     print(f"Episode: {episode}, Reward: {tot_reward}, Mean of 100 cons episodes: {mean_100ep}")
     if mean_100ep > env_par['threshold']:
-        print(f"Problem solved after {episode} Episode with the mean reward {mean_100ep} over the last 100 episodes ")
+        print(f"Problem is solved.")
         policy.network.save(agent_path)
         break
 
@@ -71,6 +74,11 @@ for episode in range(agent_par['num_episodes']):
 # Close the environment
 CP.env.close()
 
-# Print the summary of the solution
+# Print the results if the problem is solved
 if mean_100ep > env_par['threshold']:
+    # Print the summary of the solution
     print(f"\n\nProblem is solved after {episode} Episode with the mean reward {mean_100ep} over the last 100 episodes")
+
+    # Plot the result
+    MyPlot = PLTLIB()
+    MyPlot.reward_it(tot_rews)
