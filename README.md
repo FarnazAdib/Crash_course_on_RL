@@ -2,19 +2,20 @@
 
 This is a self-contained repository to explain two basic Reinforcement (RL) algorithms, namely __Policy Gradient (PG)__ and __Q-learning__, and show how to apply them on control problems. Dynamical systems might have discrete action-space like cartpole where two possible actions are +1 and -1 or continuous action space like linear Gaussian systems. Usually, you can find a code for only one of these cases. It might be not obvious how to extend one to another. 
 
-In this repository, I will explain how to formulate PG and Q-learning for each of these cases. I will provide implementations for these algorithms for both cases as Jupyter notebooks. You can also find the pure code for these algorithms (and also a few more algorithms that I have implemented but not discussed). The code is easy to follow and read. I have written in a modular way, so for example, if one is interested in the implementation of an algorithm is not confused with defining an environment in gym or plotting the results or so on.  
+In this repository, we will explain how to formulate PG and Q-learning for each of these cases. We will provide implementations for these algorithms for both cases as Jupyter notebooks. You can also find the pure code for these algorithms (and also a few more algorithms that I have implemented but not discussed). The code is easy to follow and read. We have written in a modular way, so for example, if one is interested in the implementation of an algorithm is not confused with defining an environment in gym or plotting the results or so on. The theoretical materials in this repo is summarized in a handout which is available in ArXiv. [Click here to access the handoutThe handout can be downloaded from here](https://arxiv.org/abs/2103.04910)
 
 ## Citing this repo
-You can cite this repo
+
+Here is a BibTeX entry that you can use to cite the handout in a publication:
 
 ```
-@misc{FarnazRLcourse,
-  author = {Adib Yaghmaie, Farnaz},
-  title = {Crash Course on Reinforcement Learning},
-  year = {2020},
-  publisher = {GitHub},
-  journal = {GitHub repository},
-  howpublished = {\url{https://github.com/FarnazAdib/Crash_course_on_RL.git}},
+@misc{yaghmaie2021crash,
+      title={A Crash Course on Reinforcement Learning}, 
+      author={Farnaz Adib Yaghmaie and Lennart Ljung},
+      year={2021},
+      eprint={2103.04910},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG}
 }
 ```
 
@@ -29,7 +30,11 @@ If you use this repo, please consider citing the following relevant papers:
 2019_, pp. 7480-7485.
 
 ## How to use this repo
-This repository contains Jupyter notebooks and python files. If you want to run Jupyter notebooks, I suggest to use google colab. If you want to extend the results, examine more systems, I suggest to clone this repostory and run on your computer
+This repository contains presentation files and codes. 
+
+The presentation files are related to the LINK-SIC workshop on Reinforcment Learning. The first day will be Friday March 12, 2021, 13.15 - 16.30, and the second day will be Tuesday April 6, 2021, 13.15 - 16.30. You can find the presentation files in pdf in the folder [presentation](./presentation/).
+
+The code is given as Jupyter notebooks and python files. If you want to run Jupyter notebooks, I suggest to use google colab. If you want to extend the results and examine more systems, I suggest to clone this repostory and run on your computer.
 
 ### Running on google colab
 * Go to [https://colab.research.google.com/notebooks/intro.ipynb] and sign in with a Google acount.
@@ -47,8 +52,7 @@ This repository contains Jupyter notebooks and python files. If you want to run 
 
 
 ## Where to start
-
-You can start by reading about Reinforcement Learning
+The theoretical materials in this repo is nicely summarized in our handout in pdf format available at [https://arxiv.org/abs/2103.04910](https://arxiv.org/abs/2103.04910). If you wish to read the materials in this repo, you can start by reading about Reinforcement Learning
 * [An introduction to Reinforcement Learning](RL_Intro.ipynb)
 
 
@@ -86,3 +90,6 @@ You can also see the __pure code__ for Q- and experience replay Q-learning
     
 * Experience replay Q-learning pure code
     * [Experience replay Q-learning for discrete action space (cartple)](./cartpole/replay_q_on_cartpole.py)
+    
+## Presentation files
+The presentation files for the LINK-SIC workshop can be downloaded from the folder called [presentation](./presentation/). There, you can find the presentation files for [day1](./presentation/day1/) and [day2](./presentation/day2/).
